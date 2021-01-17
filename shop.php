@@ -201,15 +201,19 @@ else
             require_once("classificationBar.php");
             echo '<div class="col">';
             echo '<div class="row justify-content-md-center" id="items">';
-            if(isset($_GET["search"]))
+            do
             {
-                $json = file_get_contents("https://apimlozanoo20.000webhostapp.com/OnlineShop/getProducts.php?user=CrapiKodaa&psw=12345&search=".$_GET["search"]);
-            }
-            else
-            {
-                $json = file_get_contents("https://apimlozanoo20.000webhostapp.com/OnlineShop/getProducts.php?user=CrapiKodaa&psw=12345");
-            }
-            $data = json_decode($json,true);
+                if(isset($_GET["search"]))
+                {
+                    $json = file_get_contents("https://apimlozanoo20.000webhostapp.com/OnlineShop/getProducts.php?user=CrapiKodaa&psw=12345&search=".$_GET["search"]);
+                }
+                else
+                {
+                    $json = file_get_contents("https://apimlozanoo20.000webhostapp.com/OnlineShop/getProducts.php?user=CrapiKodaa&psw=12345");
+                }
+                $data = json_decode($json,true);
+            }while(!$data);
+            
             $k = $page*$limit;
             for ($i=0; $i <$limitRow; $i++) 
             { 
