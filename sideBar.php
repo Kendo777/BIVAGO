@@ -91,9 +91,9 @@
                             <?php
                             if($page=="shop")
                             {
-                                echo'<form class="form-inline my-2 my-lg-0">
+                                echo'<div class="form-inline my-2 my-lg-0">
                                 <input class="form-control mr-sm-2" id="browser" type="search" placeholder="Search" aria-label="Search" name="search" onchange="changeProductsBySearch()">
-                                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="changeProductsBySearch()">Search</button></form>'; 
+                                    <button class="btn btn-outline-success my-2 my-sm-0" onclick="changeProductsBySearch()">Search</button></div>'; 
                             }
                             else
                             {

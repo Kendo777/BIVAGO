@@ -104,15 +104,15 @@ function changeProductsByFilter(filter)
 
 function orderByPrize()
 {
-	 //codigo ordenacion
+	 var products1 = JSON.parse(DATA.productsShop1);
+	var products2 = JSON.parse(DATA.productsShop2);
+	var items = products1.concat(products2);
+	items = shuffle(items);
 	 gotData();
 }
 function gotData(data) {
 	var string = "";
-	var products1 = JSON.parse(DATA.productsShop1);
-	var products2 = JSON.parse(DATA.productsShop2);
-	var items = products1.concat(products2);
-	items = shuffle(items);
+	var items = JSON.parse(data);
 	var k=0;
 	for (var i=0; i <3; i++) 
     { 
