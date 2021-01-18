@@ -3,15 +3,14 @@ var DATA = {
 }
 function changeProducts()
 {
-	var url = "http://localhost/PAPI/Group/API-grupo/metaSearch.php?user=CrapiKodaa&psw=12345";
+	var url = "http://localhost/PAPI/Group/API-grupo/metaSearch.php";
+	//console.log(url);
 	var xhttp;
-	console.log(url);
-	xhttp = new XMLHttpRequest();
+	xhttp=new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
-		if(this.readyState == 4 && this.state == 200)
-		{
+		if (this.readyState == 4 && this.status == 200) {
 			DATA.products = this.responseText;
-			gotData(this.responseText);
+			gotData(DATA.products);
 		}
 	};
 	xhttp.open('GET', url, true);
@@ -21,14 +20,14 @@ function changeProducts()
 function changeProductsBySearch()
 {
 	var search = document.getElementById('browser').value;
-	var url = "http://localhost/PAPI/Group/API-grupo/metaSearch.php?user=CrapiKodaa&psw=12345&search="+search;
+	var url = "http://localhost/PAPI/Group/API-grupo/metaSearch.php?search="+search;
 	//console.log(url);
 	var xhttp;
 	xhttp=new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
-			DATA.productsShop1 = this.responseText;
-			gotData(DATA.productsShop1);
+			DATA.products = this.responseText;
+			gotData(DATA.products);
 		}
 	};
 	xhttp.open('GET', url, true);
