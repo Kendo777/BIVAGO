@@ -12,7 +12,7 @@
 <form>
     <select class="form-control" id="orderBy" onchange="changeProductsByOrder(this.value)">
     <option value="name">Name</option>
-    <option value="prize">Prize</option>
+    <option value="price">Price</option>
   </select>
   </form><hr>
 <?php

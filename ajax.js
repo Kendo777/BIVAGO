@@ -1,6 +1,6 @@
 var DATA = {
-	products : []
-}
+};
+
 function changeProducts()
 {
 	var url = "http://localhost/PAPI/Group/API-grupo/metaSearch.php";
@@ -9,8 +9,11 @@ function changeProducts()
 	xhttp=new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
-			DATA.products = this.responseText;
-			gotData(DATA.products);
+			DATA = JSON.parse(this.responseText);
+			DATA = orderByName(DATA);
+			//DATA = orderByPrize(DATA);
+			//console.log(DATA);
+			gotData(DATA);
 		}
 	};
 	xhttp.open('GET', url, true);
@@ -26,8 +29,11 @@ function changeProductsBySearch()
 	xhttp=new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
-			DATA.products = this.responseText;
-			gotData(DATA.products);
+			DATA = JSON.parse(this.responseText);
+			DATA = orderByName(DATA);
+			//DATA = orderByPrize(DATA);
+			//console.log(DATA);
+			gotData(DATA);
 		}
 	};
 	xhttp.open('GET', url, true);
@@ -35,35 +41,16 @@ function changeProductsBySearch()
 
 
 }
+
 function changeProductsByOrder(order)
 {
-	var url = "https://apimlozanoo20.000webhostapp.com/OnlineShop/getProducts.php?user=CrapiKodaa&psw=12345&orderBy="+order;
-	//console.log(url);
-	var xhttp;
-	xhttp=new XMLHttpRequest();
-	xhttp.onreadystatechange = function() {
-		if (this.readyState == 4 && this.status == 200) 
-		{
-			DATA.productsShop1 = this.responseText;
-			var url2 = "https://apijruiz20.000webhostapp.com/IA-II/getProducts.php?orderBy="+order;
-			//console.log(url);
-			var xhttp2;
-			xhttp2=new XMLHttpRequest();
-			xhttp2.onreadystatechange = function() {
-			if (this.readyState == 4 && this.status == 200) {
-				DATA.productsShop2 = this.responseText;
-				orderByPrize();
-			}
-		};
-		xhttp2.open('GET', url2, true);
-		xhttp2.send();
-	}
-	};
-	xhttp.open('GET', url, true);
-	xhttp.send();
-
+	var url = "http://localhost/PAPI/Group/API-grupo/metaSearch.php?user=CrapiKodaa&psw=12345&orderBy="+order;
+	if(order == "price") DATA = orderByPrize(DATA);
+	else if (order == "name") DATA = orderByName(DATA);
+	gotData(DATA);
 }
-function shuffle(a) {
+
+function shuffle(a) {	//ya NO SIRVE
     var j, x, i;
     for (i = a.length - 1; i > 0; i--) {
         j = Math.floor(Math.random() * (i + 1));
@@ -76,42 +63,56 @@ function shuffle(a) {
 
 function changeProductsByFilter(filter)
 {
-	var url = "https://apimlozanoo20.000webhostapp.com/OnlineShop/getproductsShop1.php?user=CrapiKodaa&psw=12345&filter="+filter;
+	var url = "http://localhost/PAPI/Group/API-grupo/metaSearch.php?user=CrapiKodaa&psw=12345&filter="+filter;
 	//console.log(url);
 	var xhttp;
 	xhttp=new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
-			DATA.productsShop1 = this.responseText;
-			var url2 = "https://apimlozanoo20.000webhostapp.com/OnlineShop/getproductsShop1.php?user=CrapiKodaa&psw=12345&filter="+filter;
-			//console.log(url);
-			var xhttp2;
-			xhttp2=new XMLHttpRequest();
-			xhttp2.onreadystatechange = function() {
-				if (this.readyState == 4 && this.status == 200) {
-					DATA.productsShop1.concat(this.responseText);
-					gotData(DATA.productsShop1);
-				}
-			};
-			xhttp2.open('GET', url2, true);
-			xhttp2.send();
+			DATA = JSON.parse(this.responseText);
+			DATA = orderByName(DATA);
+			//DATA = orderByPrize(DATA);
+			//console.log(DATA);
+			gotData(DATA);
 		}
 	};
 	xhttp.open('GET', url, true);
 	xhttp.send();
 }
 
-function orderByPrize()
+function orderByName( d )
 {
-	 /*var products1 = JSON.parse(DATA.productsShop1);
-	var products2 = JSON.parse(DATA.productsShop2);
-	var items = products1.concat(products2);
-	items = shuffle(items);
-	 gotData();*/
+	d.sort( compareName );
+	return d;
 }
+
+function orderByPrize( d )
+{
+	d.sort( comparePrice );
+	return d;
+}
+
+function compareName( a, b )
+{
+  if ( a.name < b.name ) return -1;
+
+  if ( a.name > b.name ) return 1;
+
+  return 0;
+}
+
+function comparePrice( a, b )
+{
+  if ( a.prize < b.prize ) return -1;
+
+  if ( a.prize > b.prize ) return 1;
+
+  return 0;
+}
+
 function gotData(data) {
 	var string = "";
-	var items = JSON.parse(data);
+	var items = data;
 	var k=0;
 	for (var i=0; i <3; i++) 
     { 
