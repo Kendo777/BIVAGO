@@ -11,8 +11,6 @@ function changeProducts()
 		if (this.readyState == 4 && this.status == 200) {
 			DATA = JSON.parse(this.responseText);
 			DATA = orderByName(DATA);
-			//DATA = orderByPrize(DATA);
-			//console.log(DATA);
 			gotData(DATA);
 		}
 	};
@@ -31,8 +29,6 @@ function changeProductsBySearch()
 		if (this.readyState == 4 && this.status == 200) {
 			DATA = JSON.parse(this.responseText);
 			DATA = orderByName(DATA);
-			//DATA = orderByPrize(DATA);
-			//console.log(DATA);
 			gotData(DATA);
 		}
 	};
@@ -50,16 +46,6 @@ function changeProductsByOrder(order)
 	gotData(DATA);
 }
 
-function shuffle(a) {	//ya NO SIRVE
-    var j, x, i;
-    for (i = a.length - 1; i > 0; i--) {
-        j = Math.floor(Math.random() * (i + 1));
-        x = a[i];
-        a[i] = a[j];
-        a[j] = x;
-    }
-    return a;
-}
 
 function changeProductsByFilter(filter)
 {
@@ -110,10 +96,10 @@ function comparePrice( a, b )
   return 0;
 }
 
-function gotData(data) {
+function gotData(data,page=1) {
 	var string = "";
 	var items = data;
-	var k=0;
+	var k=(page-1)*15;
 	for (var i=0; i <3; i++) 
     { 
         string +='<div class="row justify-content-md-center">';
@@ -139,4 +125,10 @@ function gotData(data) {
         }
     }
   document.getElementById('items').innerHTML = string;
+}
+
+function pagination(page)
+{
+	console.log(page);
+	gotData(DATA,page);
 }

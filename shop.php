@@ -285,15 +285,13 @@ else
             for ($i=0; $i <ceil($result->num_rows/$limit) ; $i++) {
                 if($i==$page)
                 {
-                    echo '<form method="post" action="index.php?'.$_SERVER['QUERY_STRING'].'">
-                        <input type="text" hidden class="form-control" name="pagination" value="'.($i+1).'">
-                        <button type="submit" class="btn btn-outline-primary pages">'.($i+1).'</button></form>';
+                    echo '
+                        <button type="submit" class="btn btn-outline-primary pages" value="'.($i+1).'" onclick="pagination(this.value)">'.($i+1).'</button>';
                 }
                 else
                 {
-                    echo '<form method="post" action="index.php?'.$_SERVER['QUERY_STRING'].'">
-                        <input type="text" hidden class="form-control" name="pagination" value="'.($i+1).'">
-                        <button type="submit" class="btn btn-secondary pages">'.($i+1).'</button></form>';
+                    echo '
+                        <button type="submit" class="btn btn-secondary pages" value="'.($i+1).'" onclick="pagination(this.value)">'.($i+1).'</button>';
                 }
                 
             }
