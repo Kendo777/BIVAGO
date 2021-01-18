@@ -2,12 +2,10 @@
 <div class="col-md-auto">
     <div class="classificationBar">
     <h7 style="color: red;"><a <?php 
-    if(isset($categ))
-        echo'href="index.php?page=shop&product='.$categ.'"';
-    else if(isset($_GET['search']))
-        echo'href="index.php?page=shop&search='.$_GET['search'].'"';
+    if(isset($_GET['search']))
+        echo'onclick="changeProducts()"';
     else
-        echo'href="index.php?page=shop"';
+        echo'onclick="changeProducts()"';
     ?>
     >Resset</a></h7>
     <h5>Order by:</h5><hr>

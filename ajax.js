@@ -1,17 +1,17 @@
 var DATA = {
-	productsShop1 : [],
-	productsShop2 : []
+	products : []
 }
 function changeProducts()
 {
-	console.log("hola");
-	var url = "https://apimlozanoo20.000webhostapp.com/OnlineShop/getProducts.php?user=CrapiKodaa&psw=12345";
+	var url = "http://localhost/PAPI/Group/API-grupo/metaSearch.php?user=CrapiKodaa&psw=12345";
 	var xhttp;
+	console.log(url);
 	xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
 		if(this.readyState == 4 && this.state == 200)
 		{
-			populateItems(this.responseText);
+			DATA.products = this.responseText;
+			gotData(this.responseText);
 		}
 	};
 	xhttp.open('GET', url, true);
@@ -21,7 +21,7 @@ function changeProducts()
 function changeProductsBySearch()
 {
 	var search = document.getElementById('browser').value;
-	var url = "https://apimlozanoo20.000webhostapp.com/OnlineShop/getProducts.php?user=CrapiKodaa&psw=12345&search="+search;
+	var url = "http://localhost/PAPI/Group/API-grupo/metaSearch.php?user=CrapiKodaa&psw=12345&search="+search;
 	//console.log(url);
 	var xhttp;
 	xhttp=new XMLHttpRequest();
@@ -104,11 +104,11 @@ function changeProductsByFilter(filter)
 
 function orderByPrize()
 {
-	 var products1 = JSON.parse(DATA.productsShop1);
+	 /*var products1 = JSON.parse(DATA.productsShop1);
 	var products2 = JSON.parse(DATA.productsShop2);
 	var items = products1.concat(products2);
 	items = shuffle(items);
-	 gotData();
+	 gotData();*/
 }
 function gotData(data) {
 	var string = "";

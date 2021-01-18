@@ -200,19 +200,21 @@ else
             echo '<div class="row">';
             require_once("classificationBar.php");
             echo '<div class="col">';
-            echo '<div class="row justify-content-md-center" id="items">';
-            do
-            {
-                if(isset($_GET["search"]))
+            echo '<div class="row justify-content-md-center" id="items">
+            <script type="text/javascript">
+                changeProducts();
+            </script>';
+
+                /*if(isset($_GET["search"]))
                 {
-                    $json = file_get_contents("https://apimlozanoo20.000webhostapp.com/OnlineShop/getProducts.php?user=CrapiKodaa&psw=12345&search=".$_GET["search"]);
+                    $json = file_get_contents("http://localhost/PAPI/Group/API-grupo/metaSearch.php?user=CrapiKodaa&psw=12345&search=".$_GET["search"]);
                 }
                 else
                 {
-                    $json = file_get_contents("https://apimlozanoo20.000webhostapp.com/OnlineShop/getProducts.php?user=CrapiKodaa&psw=12345");
+                    $json = file_get_contents("http://localhost/PAPI/Group/API-grupo/metaSearch.php?user=CrapiKodaa&psw=12345");
                 }
                 $data = json_decode($json,true);
-            }while(!$data);
+
             
             $k = $page*$limit;
             for ($i=0; $i <$limitRow; $i++) 
@@ -270,7 +272,7 @@ else
                 }
                 echo '</div>';
                 
-            }
+            }*/
              echo '</div><div class="row justify-content-md-center">';
              echo '<form method="post" action="index.php?'.$_SERVER['QUERY_STRING'].'">
                         <input type="text" hidden class="form-control" name="prevPage">
