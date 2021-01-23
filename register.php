@@ -71,7 +71,7 @@ echo $errorMsg;
 ?>
 <div class="row justify-content-md-center">
   <div class="col-md-auto">
-<h3>Steampunk Shoop of Steam - Registration</h3>
+<h3>Bivago - Registration</h3>
 <form method='post' action='index.php?page=register'>
 	<div class="form-group">
 		<label>User</label><br>

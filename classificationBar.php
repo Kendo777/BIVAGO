@@ -18,21 +18,7 @@
 <?php
 
     echo '<h5>Products</h5><hr>';
-    $sqlAux= $mySqli->prepare("SELECT categories.* FROM categories ");
-    $sqlAux->execute();
-    $resultAux=$sqlAux->get_result();
-    for($i=0; $i<$resultAux->num_rows; $i++)
-        {
-            $rowAux=$resultAux->fetch_assoc();
-            if(strpos($_SERVER['QUERY_STRING'], '&product='.$rowAux['categoryId']) === false)
-            {
-                echo'<p><a  onclick="changeProductsByFilter('.$rowAux['categoryId'].')">'.$rowAux['name'].'</a></p>';
-            }
-            else
-            {
-                echo'<p class="selected"><a onclick="changeProductsByFilter(0)">'.$rowAux['name'].'</a></p>';
-            }
-        }
+   
     echo '<hr><form method="post" action="index.php?'.$_SERVER['QUERY_STRING'].'">
   <div class="form-group">
     <label for="formControlRange">Prize</label>

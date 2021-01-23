@@ -73,7 +73,7 @@ if(isset($errorMsg)) echo $errorMsg;
 ?>
 <div class="row justify-content-md-center">
   <div class="col-md-auto">
-<h3>Steampunk Age of Steam - Login</h3>
+<h3>Bivago - Login</h3>
 <form method='post' action='index.php?page=login'>
 	<div class="form-group">
 		<label>User or Email</label>

@@ -1,7 +1,7 @@
 <?php
 
 $hostname = "localhost";
-$db = "onlineshop";
+$db = "grupalshop";
 $user = "root";
 $pwd = "";
 

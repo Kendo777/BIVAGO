@@ -7,7 +7,7 @@ $maxAdds = 10;
     <h3>Products</h3>
     <div class="row justify-content-md-center">
     <?php
-        $sql= $mySqli->prepare("SELECT * FROM categories");
+        /*$sql= $mySqli->prepare("SELECT * FROM categories");
         $sql->execute();
         $result=$sql->get_result();
         for ($i=0; $i <$result->num_rows ; $i++) {
@@ -88,6 +88,6 @@ $maxAdds = 10;
         echo "</div></div></div>";
 
     }
-    echo "</div>";
+    echo "</div>";*/
     ?>
 </div>

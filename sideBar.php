@@ -22,28 +22,6 @@
                         Products
                     </a>
                 </li>
-                <!--<li>
-                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                        <i class="fas fa-cogs"></i>
-                        Products
-                    </a>
-                    <ul class="collapse list-unstyled" id="pageSubmenu">
-                        <?php
-                            $sqlBar= $mySqli->prepare("SELECT * FROM categories");
-                            $sqlBar->execute();
-                            $resultBar=$sqlBar->get_result();
-                            if(!$resultBar)
-                            {
-                            die($mySqli->error);
-                            }
-                            for($i=0; $i<$resultBar->num_rows; $i++)
-                            {
-                            $rowBar=$resultBar->fetch_assoc();
-                            echo'<li><a href="index.php?page=shop&product='.$rowBar['categoryId'].'">'.$rowBar['name'].'</a></li>';
-                            }
-                        ?>
-                    </ul>
-                </li> -->
                 <li>
                     <a href="#pageSubmenu1" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                         <i class='fas fa-balance-scale'></i>

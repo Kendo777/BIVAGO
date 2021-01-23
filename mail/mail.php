@@ -37,11 +37,11 @@ function sendEmail($email, $userName, $text, $verificationCode=0)
 
 	if($text=="registration")
 	{
-		$txtHTML="Hello, thanks to reggister ".$userName." your verification code is: ".$verificationCode.' if you click <a href="http://localhost/PAPI/OnlineShop/index.php?page=verification&user='.$userName.'&code='.$verificationCode.'&validation">here</a> you will finish the registration';
+		$txtHTML="Hello, thanks to reggister ".$userName." your verification code is: ".$verificationCode.' if you click <a href="http://localhost/PAPI/Group/API-grupo/index.php?page=verification&user='.$userName.'&code='.$verificationCode.'&validation">here</a> you will finish the registration';
 	}
 	else if($text=="forgot")
 	{
-		$txtHTML='Hello, '.$userName.' your verification code is: '.$verificationCode.' if you click <a href="http://localhost/PAPI/OnlineShop/index.php?page=verification&user='.$userName.'&code='.$verificationCode.'&forgot">here</a> you can reset your password';
+		$txtHTML='Hello, '.$userName.' your verification code is: '.$verificationCode.' if you click <a href="http://localhost/PAPI/Group/API-grupo/index.php?page=verification&user='.$userName.'&code='.$verificationCode.'&forgot">here</a> you can reset your password';
 	}
 
 	$mail->msgHTML($txtHTML);

@@ -23,7 +23,7 @@ if(isset($_GET["page"]))
 }
 if(isset($_GET['item']))
     $id = mysql_fix_string($mySqli,$_GET['item']);
-
+/*
 $sql= $mySqli->prepare("SELECT * FROM orders WHERE paid=0");
 $sql->execute();
 $result=$sql->get_result();
@@ -53,7 +53,7 @@ for ($i=0; $i <$result->num_rows; $i++) {
         }
     }
 }
-
+*/
 if(isset($_POST['addCart']))
 {
   $sql= $mySqli->prepare("SELECT * FROM items WHERE itemId=?");
