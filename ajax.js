@@ -112,16 +112,9 @@ function gotData(data,page=1) {
                  string += '<div class="card text-center" style="width: 18rem;">';
                 
                 string += '<div class="card-body">';
-				if(product['shop']!=undefined)
-				{
-				    string += '<a href = "index.php?page=itemInfo&shop='+product['shop']+'&item='+product['id']+'"><h5 class="card-title">'+product['name']+'</h5></a>';
-					string += '<td><a href = "index.php?page=itemInfo&shop='+product['shop']+'&item='+product['id']+'"><img src="'+product['img']+'" width="200" height="260"></a></td>';
-				}
-				else
-				{
-				    string += '<a href = "index.php?page=itemInfo&item='+product['id']+'"><h5 class="card-title">'+product['name']+'</h5></a>';
-					string += '<td><a href = "index.php?page=itemInfo&item='+product['id']+'"><img src="'+product['img']+'" width="200" height="260"></a></td>';
-				}
+				string += '<a href = "index.php?page=itemInfo&shop='+product['shop']+'&item='+product['id']+'"><h5 class="card-title">'+product['name']+'</h5></a>';
+				string += '<td><a href = "index.php?page=itemInfo&shop='+product['shop']+'&item='+product['id']+'"><img src="'+product['img']+'" width="200" height="260"></a></td>';
+
                     
                 string += '<p class="card-text text-truncate">'+product['description']+'</p>';
                 string += '<p class="card-text">'+product['prize']+'$</p>';
