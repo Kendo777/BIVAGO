@@ -133,6 +133,12 @@ function pagination(page)
 	//console.log(page);
 	gotData(DATA,page);
 }
+
+function getDataLenght()
+{
+	return DATA.length;
+}
+
 function updateTextInput(val) 
 {
     document.getElementById('textInput').innerHTML=val+"$"; 
