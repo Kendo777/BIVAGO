@@ -138,7 +138,7 @@ else
                             echo "disabled";
                         }
                         echo '><i class="fas fa-angle-left"></i></button></form>';
-            for ($i=0; $i <ceil($result->num_rows/$limit) ; $i++) {
+            for ($i=0; $i <ceil(200/15) ; $i++) {
                 if($i==$page)
                 {
                     echo '
