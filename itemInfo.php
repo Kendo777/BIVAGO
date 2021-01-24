@@ -1,73 +1,37 @@
 <?php
 $maxAdds=6;
-    $sql= $mySqli->prepare("SELECT * FROM items WHERE itemId=?");
-    $sql->bind_param("i",$id);
-    $sql->execute();
-    $result=$sql->get_result();
+  $shop = $_GET["shop"];
+  $item = $_GET["item"];
+  $json = file_get_contents('http://localhost/PAPI/Group/API-grupo/metaSearch.php?shop='.$shop.'&item='.$item);
+  $product = json_decode($json,true);
 
-    if(!$result)
-    {
-      die($mySqli->error);
-    }
-    if(isset($errorMsg)) echo $errorMsg;
-  $row=$result->fetch_assoc();
+
   echo '<div class="row">
   <div class="col-md-auto">';
-  if(file_exists("css".DIRECTORY_SEPARATOR."ItemImg".DIRECTORY_SEPARATOR.$row['itemId'].$row['itemName'].".png"))
-    echo '<img src="css'.DIRECTORY_SEPARATOR.'ItemImg'.DIRECTORY_SEPARATOR.$row['itemId'].$row['itemName'].'.png">';
-  else //If the image doesnt exists we give a default one
-  {
-    $sqlAux= $mySqli->prepare("SELECT * FROM categories INNER JOIN classification ON categories.categoryId=classification.categoryId INNER JOIN items ON classification.itemId=items.itemId WHERE items.itemId=?");
-    $sqlAux->bind_param("i",$id);
-    $sqlAux->execute();
-    $resultAux=$sqlAux->get_result();
-    $rowAux=$resultAux->fetch_assoc();
-
-    if(file_exists("css".DIRECTORY_SEPARATOR."Default".DIRECTORY_SEPARATOR.$rowAux['name']."Default.jpg"))
-      echo '<img src="css'.DIRECTORY_SEPARATOR.'Default'.DIRECTORY_SEPARATOR.$rowAux['name'].'Default.jpg">';
-    else
-      echo '<img src=".css'.DIRECTORY_SEPARATOR.'Default'.DIRECTORY_SEPARATOR.'itemDefault.jpg">';
-  }
+    echo '<img src="'.$product["img"].'">';
     echo '</div>';
-
     echo '<div class="col-md-auto">';
-    echo '<h2>'.$row["itemName"].'</h2>';
+    echo '<h2>'.$product["name"].'</h2>
+    <h5>Category:</h5><p><span class="category">'.$product["category"].'</span></p>';
+    echo '<h5>Sub-Category:</h5><p><span class="category">';
 
-    $sqlAux= $mySqli->prepare("SELECT subcategories.subCategoryId, subcategories.name FROM subcategories INNER JOIN subclasification ON subcategories.subCategoryId=subclasification.subCategoryId INNER JOIN items ON subclasification.itemId=items.itemId WHERE items.itemId=?");
-    $sqlAux->bind_param("i",$id);
-    $sqlAux->execute();
-    $resultAux=$sqlAux->get_result();
-    $sqlCat= $mySqli->prepare("SELECT * FROM categories INNER JOIN classification ON categories.categoryId=classification.categoryId INNER JOIN items ON classification.itemId=items.itemId WHERE items.itemId=?");
-    $sqlCat->bind_param("i",$id);
-    $sqlCat->execute();
-    $resultCat=$sqlCat->get_result();
-    $rowCat=$resultCat->fetch_assoc();
-    for($i=0; $i<$resultAux->num_rows; $i++)
-    {
-      $rowAux=$resultAux->fetch_assoc();
-      echo '<a href="index.php?page=shop&product='.$rowCat['categoryId'].'&subCategory='.$rowAux['subCategoryId'].'" class="subProduct">'.$rowAux['name'].'</a>';
+    $subCategories = explode(":", $product["subCategory"]);
+    for ($i=0; $i <count($subCategories) ; $i++) { 
+      echo $subCategories[$i]." ";
     }
-
-    echo '<p>Prize: <span class="prize">'.$row['prize'].'$</span></p>';
-    $sqlAux= $mySqli->prepare("SELECT attributes.name, itemattribute.value FROM attributes INNER JOIN itemattribute ON attributes.attributeId=itemattribute.attributeId INNER JOIN items ON itemattribute.itemId=items.itemId WHERE items.itemId=?");
-    $sqlAux->bind_param("i",$id);
-    $sqlAux->execute();
-    $resultAux=$sqlAux->get_result();
-    for($i=0; $i<$resultAux->num_rows; $i++)
-    {
-      $rowAux=$resultAux->fetch_assoc();
-      echo '<h5>'.$rowAux['name'].':</h5><p>'.$rowAux['value'].'</p>';
-    }
+    echo '</span></p>';
+    echo '<p>Prize: <span class="prize">'.$product['prize'].'$</span></p>';
+    
     echo '<h5>Product description</h5>';
-    echo '<p style="max-width: 500px;">'.$row['description'].'</p>';
-    echo '<p>Stock: '.$row['stock'].'</p>';
-    if($row['stock']>0)
+    echo '<p style="max-width: 500px;">'.$product['description'].'</p>';
+    echo '<p>Stock: '.$product['stock'].'</p>';
+    if($product['stock']>0)
     {
       if(isset($_SESSION['user']))
       {
-        echo '<form action="index.php?page=itemInfo&item='.$id.'" method="post">
+        echo '<form action="index.php?page=itemInfo&item='.$item.'" method="post">
             <div class="form-group">
-            <input type="text" hidden class="form-control" name="addCart" value="'.$row['itemId'].'">
+            <input type="text" hidden class="form-control" name="addCart" value="'.$product['id'].'">
             <button type="submit" class="btn btn-warning">Add to the cart</button>
             </div>
             </form>';
@@ -85,7 +49,7 @@ $maxAdds=6;
     echo '</div>';
 
 // Items suggestions
-    
+    /*
     echo '<div class="row suggestions">';
     $sqlAux= $mySqli->prepare("SELECT * FROM categories INNER JOIN classification ON categories.categoryId=classification.categoryId INNER JOIN items ON classification.itemId=items.itemId WHERE items.itemId=?");
     $sqlAux->bind_param("i",$id);
@@ -136,6 +100,6 @@ $maxAdds=6;
         echo "</div></div></div>";
 
     }
-    echo "</div>";
+    echo "</div>";*/
 ?>
 

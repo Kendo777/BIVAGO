@@ -24,6 +24,20 @@ else if(isset($_GET['filter']))
 	header('Content-type: application/json');
 	echo $json;
 }
+else if(isset($_GET['shop']) && isset($_GET['item']))
+{
+	if($_GET['shop'] == "Steampunk")
+	{
+		$json = file_get_contents("http://localhost/PAPI/OnlineShop/getProducts.php?user=CrapiKodaa&psw=12345&item=".$_GET["item"]);
+	}
+	else if($_GET['shop'] == "IA-II")
+	{
+		$json = file_get_contents("http://localhost/PAPI/IA-II/getProducts.php?user=CrapiKodaa&psw=12345&item=".$_GET["item"]);
+	}
+	//var_dump($data);
+	header('Content-type: application/json');
+	echo $json;
+}
 else
 {
 	$json1 = file_get_contents("http://localhost/PAPI/OnlineShop/getProducts.php?user=CrapiKodaa&psw=12345");

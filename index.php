@@ -151,9 +151,6 @@ else
             x.style.display = "none";
           }
         }
-        function updateTextInput(val) {
-          document.getElementById('textInput').innerHTML=val+"$"; 
-        }
     </script>
 </head>
 

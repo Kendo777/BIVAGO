@@ -16,40 +16,21 @@
   </select>
   </form><hr>
 <?php
-
-    echo '<h5>Products</h5><hr>';
-   
-    echo '<hr><form method="post" action="index.php?'.$_SERVER['QUERY_STRING'].'">
+    echo '<hr>
   <div class="form-group">
     <label for="formControlRange">Prize</label>
-    <input type="range" name="prize" class="form-control-range"min="0" max="100" value="';
-    if(isset($_GET['prize']) && is_numeric($_GET['prize']))
-    {
-        echo $_GET['prize'].'" onchange="updateTextInput(this.value)">
-    <p id="textInput">'.$_GET['prize'].'$</p>';
-    }
-    else
-    {
-        echo '0" onchange="updateTextInput(this.value)">
-    <p id="textInput">0$</p>';
-    }
-    echo '  </div>
-   <input type="submit">
-</form><hr>';
+    <input type="range" name="prize" class="form-control-range"min="0" max="1000" value="0" onchange="updateTextInput(this.value)">
+    <p id="textInput">0$</p>
+    </div>
+<hr>';
 
-echo '<form method="post" action="index.php?'.$_SERVER['QUERY_STRING'].'">
-<div class="custom-control custom-checkbox form-group">
+echo '<div class="custom-control custom-checkbox form-group">
   <input type="hidden" name="uncheck"/>
-  <input type="checkbox" name="shippment" class="custom-control-input" id="ShippmentCheckbox" ';
-  if(isset($_GET["freeShippment"]))
-  {
-    echo "checked";
-  }
-  echo '>
+  <input type="checkbox" name="shippment" class="custom-control-input" id="ShippmentCheckbox">
   <label class="custom-control-label" for="ShippmentCheckbox">Free Shippment</label><br>
-</div>
-  <input type="submit">
-</form><hr>';
+</div>';
+
+    echo '<h5>Products</h5><hr>';
 ?>
 </div>
 </div>
