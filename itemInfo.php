@@ -4,7 +4,7 @@ $maxAdds=6;
   $item = $_GET["item"];
   $json = file_get_contents('http://localhost/PAPI/Group/API-grupo/metaSearch.php?shop='.$shop.'&item='.$item);
   $product = json_decode($json,true);
-
+  echo $json;
 
   echo '<div class="row">
   <div class="col-md-auto">';

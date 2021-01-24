@@ -97,7 +97,7 @@ function comparePrice( a, b )
 }
 
 function gotData(data,page=1) {
-	var string = "";
+	var string = " " + page + " ";
 	var items = data;
 	var k=(page-1)*15;
 	for (var i=0; i <3; i++) 
@@ -137,7 +137,7 @@ function gotData(data,page=1) {
 
 function pagination(page)
 {
-	console.log(page);
+	//console.log(page);
 	gotData(DATA,page);
 }
 function updateTextInput(val) 

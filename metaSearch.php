@@ -9,7 +9,7 @@ header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
 if(isset($_GET['search'])) {
 
 	$json1 = file_get_contents("http://localhost/PAPI/OnlineShop/getProducts.php?user=CrapiKodaa&psw=12345&search=".$_GET["search"]);
-	$json2 = file_get_contents("http://localhost/PAPI/IA-II/getProducts.php?user=CrapiKodaa&psw=12345&search=".$_GET["search"]);
+	$json2 = file_get_contents("http://localhost/PAPI/IA-II/getProducts.php?search=".$_GET["search"]);
 	$json = json_encode(array_merge(json_decode($json1, true),json_decode($json2, true)));
 	//var_dump($data);
 	header('Content-type: application/json');
@@ -18,7 +18,7 @@ if(isset($_GET['search'])) {
 else if(isset($_GET['filter']))
 {
 	$json1 = file_get_contents("http://localhost/PAPI/OnlineShop/getProducts.php?user=CrapiKodaa&psw=12345&filter=".$_GET["filter"]);
-	$json2 = file_get_contents("http://localhost/PAPI/IA-II/getProducts.php?user=CrapiKodaa&psw=12345&filter=".$_GET["filter"]);
+	$json2 = file_get_contents("http://localhost/PAPI/IA-II/getProducts.php?filter=".$_GET["filter"]);
 	$json = json_encode(array_merge(json_decode($json1, true),json_decode($json2, true)));
 	//var_dump($data);
 	header('Content-type: application/json');
@@ -30,9 +30,9 @@ else if(isset($_GET['shop']) && isset($_GET['item']))
 	{
 		$json = file_get_contents("http://localhost/PAPI/OnlineShop/getProducts.php?user=CrapiKodaa&psw=12345&item=".$_GET["item"]);
 	}
-	else if($_GET['shop'] == "IA-II")
+	else if($_GET['shop'] == "Compopop")
 	{
-		$json = file_get_contents("http://localhost/PAPI/IA-II/getProducts.php?user=CrapiKodaa&psw=12345&item=".$_GET["item"]);
+		$json = file_get_contents("http://localhost/PAPI/IA-II/getItem.php?item=".$_GET["item"]);
 	}
 	//var_dump($data);
 	header('Content-type: application/json');
@@ -41,7 +41,7 @@ else if(isset($_GET['shop']) && isset($_GET['item']))
 else
 {
 	$json1 = file_get_contents("http://localhost/PAPI/OnlineShop/getProducts.php?user=CrapiKodaa&psw=12345");
-	$json2 = file_get_contents("http://localhost/PAPI/IA-II/getProducts.php?user=CrapiKodaa&psw=12345");
+	$json2 = file_get_contents("http://localhost/PAPI/IA-II/getProducts.php");
 	$json = json_encode(array_merge(json_decode($json1, true),json_decode($json2, true)));
 	//var_dump($data);
 	header('Content-type: application/json');
