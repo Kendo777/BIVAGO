@@ -66,6 +66,26 @@ function changeProductsByFilter(filter)
 	xhttp.send();
 }
 
+function buyProduct(user)
+{
+	var shop = document.getElementById('shopId').value;
+	var item = document.getElementById('productId').value;
+	var cuantity = document.getElementById('cuantity').value;
+
+	var url = "http://localhost/PAPI/Group/API-grupo/metaSearch.php?user="+user+"&shop="+shop+"&item="+item+"&cuantity="+cuantity;
+	//console.log(url);
+	var xhttp;
+	xhttp=new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			updateData(this.responseText);
+		}
+	};
+	xhttp.open('GET', url, true);
+	xhttp.send();
+
+}
+
 function orderByName( d )
 {
 	d.sort( compareName );
@@ -126,6 +146,21 @@ function gotData(data,page=1) {
         }
     }
   document.getElementById('items').innerHTML = string;
+}
+
+function updateData(data)
+{
+	document.getElementById('stock').innerHTML= "Stock: "+data['stock'];
+
+	if(data['stock']>0)
+	{
+		document.getElementById('cuantity').setAttribute("max",data['stock']);;
+	}
+	else
+	{
+		document.getElementById('addToCart').innerHTML = '<button type="button" class="btn btn-secondary" disabled>Sold Out</button>';
+	}
+	
 }
 
 function pagination(page)

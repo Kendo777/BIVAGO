@@ -23,7 +23,7 @@ if(isset($_GET["page"]))
 }
 if(isset($_GET['item']))
     $id = mysql_fix_string($mySqli,$_GET['item']);
-/*
+
 $sql= $mySqli->prepare("SELECT * FROM orders WHERE paid=0");
 $sql->execute();
 $result=$sql->get_result();
@@ -40,20 +40,11 @@ for ($i=0; $i <$result->num_rows; $i++) {
         $minutes += $diff->i;
         if($minutes>30)
         {
-            $itemId = $row['itemId'];
-            $cuantity = $row['cuantity'];
-            $sqlAux= $mySqli->prepare("UPDATE items SET stock=stock+? WHERE itemId=?");
-            $sqlAux->bind_param("ii",$cuantity,$itemId);
-            $sqlAux->execute();
-
-            $sqlAux= $mySqli->prepare("DELETE FROM orders WHERE orderId=?");
-            $orderId = $row['orderId'];
-            $sqlAux->bind_param("i",$orderId);
-            $sqlAux->execute();
+            file_get_contents("http://localhost/PAPI/Group/API-grupo/metaSearch.php?order=".$row['orderId']);
         }
     }
 }
-*/
+
 if(isset($_POST['addCart']))
 {
   $sql= $mySqli->prepare("SELECT * FROM items WHERE itemId=?");

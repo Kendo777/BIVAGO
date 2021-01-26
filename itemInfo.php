@@ -23,17 +23,15 @@ $maxAdds=6;
     
     echo '<h5>Product description</h5>';
     echo '<p style="max-width: 500px;">'.$product['description'].'</p>';
-    echo '<p>Stock: '.$product['stock'].'</p>';
+    echo '<p id="stock">Stock: '.$product['stock'].'</p>';
     if($product['stock']>0)
     {
       if(isset($_SESSION['user']))
       {
-        echo '<form action="index.php?page=itemInfo&item='.$item.'" method="post">
-            <div class="form-group">
-            <input type="text" hidden class="form-control" name="addCart" value="'.$product['id'].'">
-            <button type="submit" class="btn btn-warning">Add to the cart</button>
-            </div>
-            </form>';
+        echo '<div id="addToCart"><input type="text" hidden class="form-control" id="shopId" value="'.$shop.'">
+            <input type="text" hidden class="form-control" id="productId" value="'.$item.'">
+            <input type="number" id="cuantity" min="0" max="'.$product["stock"].'" value="1">
+            <button type="submit" class="btn btn-warning" onclick="buyProduct('.$_SESSION['user'].')">Add to the cart</button><div>';
       }
       else
       {

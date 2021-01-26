@@ -41,6 +41,7 @@
                 <li>
                     <a href="index.php?page=shoppingCart">
                         <i class="fas fa-shopping-cart"></i>
+                        <div id="cart">
                         Cart 
                         <?php
                             $sql= $mySqli->prepare("SELECT * FROM orders WHERE user=? AND paid=0");
@@ -49,6 +50,7 @@
                             $result=$sql->get_result();
                             echo "(".$result->num_rows.")";
                         ?>
+                        </div>
                     </a>
                 </li>
             </ul>
