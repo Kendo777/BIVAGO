@@ -40,7 +40,6 @@ function changeProductsBySearch()
 
 function changeProductsByOrder(order)
 {
-	//var url = "http://localhost/PAPI/Group/API-grupo/metaSearch.php?user=CrapiKodaa&psw=12345&orderBy="+order;
 	if(order == "price") DATA = orderByPrize(DATA);
 	else if (order == "name") DATA = orderByName(DATA);
 	gotData(DATA);
@@ -243,5 +242,4 @@ function getDataLenght()
 function updateTextInput(val) 
 {
     document.getElementById('textInput').innerHTML=val+"$"; 
-    //codigo de dentro del rango o en su defecto (actual) mayor de x
 }
