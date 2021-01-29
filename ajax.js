@@ -50,17 +50,20 @@ function changeProductsByOrder(order)
 function changeProductsByFilter(filter)
 {
 	var numProds = DATA.length;
+	$json = [];
 	for (var i=0; i < numProds; i++) 
     { 
 		var product = DATA[i];
 		if(product)
 		{
+			var strAux = product['category'];
 			if(strAux.search(filter) != -1)
 			{
-				DATA.pop(product);
+				$json.push(product);
 			}
 		}
     }
+	DATA = $json;
 	gotData(DATA);
 }
 /*
