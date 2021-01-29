@@ -40,7 +40,7 @@ function changeProductsBySearch()
 
 function changeProductsByOrder(order)
 {
-	var url = "http://localhost/PAPI/Group/API-grupo/metaSearch.php?user=CrapiKodaa&psw=12345&orderBy="+order;
+	//var url = "http://localhost/PAPI/Group/API-grupo/metaSearch.php?user=CrapiKodaa&psw=12345&orderBy="+order;
 	if(order == "price") DATA = orderByPrize(DATA);
 	else if (order == "name") DATA = orderByName(DATA);
 	gotData(DATA);
@@ -87,6 +87,7 @@ function changeProductsBySubCat(filter)
 
 function changeProductsByPrize(filter)
 {
+	updateTextInput(filter);
 	var numProds = DATA.length;
 	var json = [];
 	for (var i=0; i < numProds; i++) 
@@ -94,7 +95,7 @@ function changeProductsByPrize(filter)
 		var product = DATA[i];
 		if(product)
 		{
-			var strAux = product['Prize'];
+			var strAux = product['prize'];
 			if(strAux > filter)
 			{
 				json.push(product);
@@ -102,6 +103,32 @@ function changeProductsByPrize(filter)
 		}
     }
 	gotData(json);
+}
+function changeProductsByShippment(value)
+{
+	var check = document.getElementById("ShippmentCheckbox").checked;
+	if(check)
+	{
+		var numProds = DATA.length;
+		var json = [];
+		for (var i=0; i < numProds; i++) 
+	    { 
+			var product = DATA[i];
+			if(product)
+			{
+				var strAux = product['shippment'];
+				if(strAux==0)
+				{
+					json.push(product);
+				}
+			}
+	    }
+		gotData(json);
+	}
+	else
+	{
+		gotData(DATA);
+	}
 }
 
 function buyProduct()

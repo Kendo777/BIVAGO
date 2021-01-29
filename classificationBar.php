@@ -19,14 +19,14 @@
     echo '<hr>
   <div class="form-group">
     <label for="formControlRange">Prize</label>
-    <input type="range" name="prize" class="form-control-range"min="0" max="1000" value="0" onchange="updateTextInput(this.value)">
+    <input type="range" name="prize" class="form-control-range"min="0" max="1000" value="0" onchange="changeProductsByPrize(this.value)">
     <p id="textInput">0$</p>
     </div>
 <hr>';
 
 echo '<div class="custom-control custom-checkbox form-group">
   <input type="hidden" name="uncheck"/>
-  <input type="checkbox" name="shippment" class="custom-control-input" id="ShippmentCheckbox">
+  <input type="checkbox" name="shippment" class="custom-control-input" id="ShippmentCheckbox" onchange="changeProductsByShippment()">
   <label class="custom-control-label" for="ShippmentCheckbox">Free Shippment</label><br>
 </div>';
 
@@ -43,7 +43,7 @@ echo '<div class="custom-control custom-checkbox form-group">
         $subCategory = json_decode($subCategory,true);
         for($i=0; $i<count($subCategory); $i++)
         {
-          echo '<p style="cursor: pointer;">'.$subCategory[$i]["name"].'</p>';
+          echo '<p style="cursor: pointer;" onclick="changeProductsBySubCat(\''.$subCategory[$i]["name"].'\')">'.$subCategory[$i]["name"].'</p>';
         }
 ?>
 </div>
