@@ -19,7 +19,7 @@ $maxAdds=6;
       echo $subCategories[$i]." ";
     }
     echo '</span></p>';
-    echo '<p>Prize: <span class="prize">'.$product['prize'].'$</span></p>';
+    echo '<p>Prize: <span class="prize">'.$product['prize'].'$</span>+ shippment: '.$product['shippment'].'$</p>';
     
     echo '<h5>Product description</h5>';
     echo '<p style="max-width: 500px;">'.$product['description'].'</p>';
@@ -31,7 +31,7 @@ $maxAdds=6;
         echo '<div id="addToCart"><input type="text" hidden class="form-control" id="shopId" value="'.$shop.'">
             <input type="text" hidden class="form-control" id="productId" value="'.$item.'">
             <input type="number" id="cuantity" min="0" max="'.$product["stock"].'" value="1">
-            <button type="submit" class="btn btn-warning" onclick="buyProduct('.$_SESSION['user'].')">Add to the cart</button><div>';
+            <button type="submit" class="btn btn-warning" onclick="buyProduct()">Add to the cart</button><div>';
       }
       else
       {

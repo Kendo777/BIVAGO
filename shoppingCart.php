@@ -4,71 +4,13 @@ if(isset($_POST['deleteId']))
 {
   $post = mysql_fix_string($mySqli,$_POST['deleteId']);
 
-  $sql= $mySqli->prepare("SELECT * FROM orders WHERE orderId=?");
-  $sql->bind_param("i",$post);
-  $sql->execute();
-  $result=$sql->get_result();
-  $row=$result->fetch_assoc();
-
-	$sql= $mySqli->prepare("UPDATE items SET stock=stock+1 WHERE itemId=?");
-	$sql->bind_param("i",$row['itemId']);
-	$sql->execute();
-
-  if($row['cuantity']>1)
-  {
-  	$sql= $mySqli->prepare("UPDATE orders SET cuantity=cuantity-1 WHERE orderId=?");
-  }
-  else
-  {
-  	$sql= $mySqli->prepare("DELETE FROM orders WHERE orderId=?");
-  }
-	  
-  $sql->bind_param("i",$post);
-  $sql->execute();
-}
-if(isset($_POST['cardNumber']) && $_POST['cardNumber']!="" && isset($_POST['cardName']) && $_POST['cardName']!="" && isset($_POST['cardDate']) && $_POST['cardDate']!="")
-{
-  $cardName = mysql_fix_string($mySqli,$_POST['cardName']);
-  $cardNumber = mysql_fix_string($mySqli,$_POST['cardNumber']);
-  $cardDate = mysql_fix_string($mySqli,$_POST['cardDate']);
-
-  $sql= $mySqli->prepare("INSERT INTO creditcard(user, number, name, date) VALUES (?,?,?,?)");
-  $sql->bind_param("siss",$_SESSION['user'],$cardNumber,$cardName,$cardDate);
-  $sql->execute();
-
-}
-if(isset($_POST['direction']) && $_POST['direction']!="" && isset($_POST['zipCode']) && $_POST['zipCode']!="" && isset($_POST['city']) && $_POST['city']!="" && isset($_POST['country']) && $_POST['country']!="")
-{
-  $direction = mysql_fix_string($mySqli,$_POST['direction']);
-  $zipCode = mysql_fix_string($mySqli,$_POST['zipCode']);
-  $city = mysql_fix_string($mySqli,$_POST['city']);
-  $country = mysql_fix_string($mySqli,$_POST['country']);
-
-  $sql= $mySqli->prepare("INSERT INTO addresses(user, direction, zipCode, city, country) VALUES (?,?,?,?,?)");
-  $sql->bind_param("ssiss",$_SESSION['user'],$direction,$zipCode,$city,$country);
-  $sql->execute();
-
+  file_get_contents("http://localhost/PAPI/Group/API-grupo/metaSearch.php?deleteOrder=".$post);
+  
 }
 
 if(isset($_POST['address']) && isset($_POST['creditCard']))
 {
-      $address = mysql_fix_string($mySqli,$_POST['address']);
-      $creditCard = mysql_fix_string($mySqli,$_POST['creditCard']);
-
-      $sql= $mySqli->prepare("SELECT * FROM orders WHERE user=? AND paid=0");
-      $sql->bind_param("s",$_SESSION['user']);
-      $sql->execute();
-      $result=$sql->get_result();
-
-      $date = date("Y-m-d H:i:s");
-      
-      for($i=0; $i<$result->num_rows ;$i++)
-      {
-        $row=$result->fetch_assoc();
-        $sql= $mySqli->prepare("UPDATE orders SET addressId=?, creditCardId=?, date=?, paid=1 WHERE orderId=?");
-        $sql->bind_param("iisi",$address,$creditCard,$date,$row['orderId']);
-        $sql->execute();
-      }
+      file_get_contents("http://localhost/PAPI/Group/API-grupo/metaSearch.php?user=".$_SESSION["user"]."&address=".$_POST['address']."&creditCard=".$_POST['creditCard']);
       header('location:index.php');
 }
 
@@ -98,40 +40,21 @@ $result=$sql->get_result();
     <tbody>
       <?php
       	$totalPrize = 0;
-      	for($i=0; $i<$result->num_rows; $i++)
+
+        $orders = file_get_contents("http://localhost/PAPI/Group/API-grupo/metaSearch.php?user=".$_SESSION["user"]."&order=0");
+
+        $orders = json_decode($orders,true);
+      	for($i=0; $i<count($orders); $i++)
       	{
-      		$row=$result->fetch_assoc();
-      		$sqlAux= $mySqli->prepare("SELECT * FROM items WHERE itemId=?");
-			$sqlAux->bind_param("i",$row['itemId']);
-			$sqlAux->execute();
-			$resultAux=$sqlAux->get_result();
-			$rowAux = $resultAux->fetch_assoc();
 	          echo '<tr>';
-	          echo '<td>'.$rowAux['itemName'].'</td>';
-	          echo '<td>'.$rowAux['prize'].'$</td>';
-	          echo '<td>'.$rowAux['extra'].'$</td>';
-	          echo '<td>'.$row['cuantity'].'</td>';
-	          $prize = $row['cuantity']*$rowAux['prize']+$rowAux['extra'];
+	          echo '<td>'.$orders[$i]['name'].'</td>';
+	          echo '<td>'.$orders[$i]['prize'].'$</td>';
+	          echo '<td>'.$orders[$i]['shippment'].'$</td>';
+	          echo '<td>'.$orders[$i]['cuantity'].'</td>';
+	          $prize = $orders[$i]['cuantity']*$orders[$i]['prize']+$orders[$i]['shippment'];
 	          echo '<td>'.$prize.'$</td>';
 	          $totalPrize+=$prize;
-	          if(file_exists("css".DIRECTORY_SEPARATOR."ItemImg".DIRECTORY_SEPARATOR.$row['itemId'].$rowAux['itemName'].".png"))
-	            echo '<td><img src="css'.DIRECTORY_SEPARATOR.'ItemImg'.DIRECTORY_SEPARATOR.$row['itemId'].$rowAux['itemName'].'.png" width="100" height="130"></td>';
-	          else
-	            {
-	            	$sqlAux= $mySqli->prepare("SELECT categories.* FROM categories INNER JOIN classification ON categories.categoryId=classification.categoryId WHERE classification.itemId=?");
-                    $sqlAux->bind_param("i",$row['itemId']);
-                    $sqlAux->execute();
-                    $resultAux=$sqlAux->get_result();
-                    $rowAux=$resultAux->fetch_assoc();
-                    if(file_exists("css".DIRECTORY_SEPARATOR."Default".DIRECTORY_SEPARATOR.$rowAux['name']."Default.jpg"))
-                    {
-                      echo '<td><img src="css'.DIRECTORY_SEPARATOR.'Default'.DIRECTORY_SEPARATOR.$rowAux['name'].'Default.jpg" width="100" height="130"></td>';
-                    }
-                    else
-                    {
-                      echo '<td><img src="css'.DIRECTORY_SEPARATOR.'Default'.DIRECTORY_SEPARATOR.'itemDefault.jpg" width="100" height="130"></td>';
-                    }
-	            }
+	          echo '<td><img src="'.$orders[$i]["img"].'" width="100" height="130"></td>';
               if(!isset($_GET["pay"]))
               {
   	            echo '<td><form action="index.php?page=shoppingCart" method="post">

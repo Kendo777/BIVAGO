@@ -40,7 +40,7 @@ for ($i=0; $i <$result->num_rows; $i++) {
         $minutes += $diff->i;
         if($minutes>30)
         {
-            file_get_contents("http://localhost/PAPI/Group/API-grupo/metaSearch.php?order=".$row['orderId']);
+              file_get_contents("http://localhost/PAPI/Group/API-grupo/metaSearch.php?deleteOrder=".$row["orderId"]);
         }
     }
 }

@@ -450,35 +450,24 @@ if(isset($_GET['orders']))
       </tr>
     </thead>
     <tbody>';
-        $sql= $mySqli->prepare("SELECT * FROM orders WHERE user=? AND paid=1");
-        $sql->bind_param("s",$_SESSION['user']);
-        $sql->execute();
-        $result=$sql->get_result();
-        for($i=0; $i<$result->num_rows; $i++)
+        $orders = file_get_contents("http://localhost/PAPI/Group/API-grupo/metaSearch.php?user=".$_SESSION["user"]."&order=1");
+
+        $orders = json_decode($orders,true);
+        for($i=0; $i<count($orders); $i++)
         {
-          $row=$result->fetch_assoc();
-          $sqlAux= $mySqli->prepare("SELECT * FROM items WHERE itemId=?");
-          $sqlAux->bind_param("i",$row['itemId']);
-          $sqlAux->execute();
-          $resultAux=$sqlAux->get_result();
-          $rowAux = $resultAux->fetch_assoc();
             echo '<tr>';
-            echo '<td>'.$rowAux['itemName'].'</td>';
-            echo '<td>'.$row['cuantity'].'</td>';
-            $prize = $row['cuantity']*$rowAux['prize']+$rowAux['extra'];
+            echo '<td>'.$orders[$i]['name'].'</td>';
+            echo '<td>'.$orders[$i]['cuantity'].'</td>';
+            $prize = $orders[$i]['cuantity']*$orders[$i]['prize']+$orders[$i]['shippment'];
             echo '<td>'.$prize.'$</td>';
-            $date = new DateTime($row['date']);
+            $date = new DateTime($orders[$i]['date']);
             echo '<td>'.$date->format("F j, Y, g:i a").'</td>';
 
-          $sqlAux= $mySqli->prepare("SELECT * FROM addresses WHERE addressId=?");
-          $sqlAux->bind_param("i",$row['addressId']);
-          $sqlAux->execute();
-          $resultAux=$sqlAux->get_result();
-          $rowDir = $resultAux->fetch_assoc();
+          
 
-          echo '<td>'.$rowDir['direction'].'</td>';
+          echo '<td>'.$orders[$i]['direction'].'</td>';
                       echo '<td><div class="custom-control custom-checkbox">';
-            if($row['send'])
+            if($orders[$i]['send'])
             {
                 echo '<input type="checkbox" class="custom-control-input" checked disabled>
                       <label class="custom-control-label"></label>';
@@ -488,24 +477,8 @@ if(isset($_GET['orders']))
             }
           echo '</div></td>';
 
-            if(file_exists("css".DIRECTORY_SEPARATOR."ItemImg".DIRECTORY_SEPARATOR.$row['itemId'].$rowAux['itemName'].".png"))
-              echo '<td><img src="css'.DIRECTORY_SEPARATOR.'ItemImg'.DIRECTORY_SEPARATOR.$row['itemId'].$rowAux['itemName'].'.png" width="100" height="130"></td>';
-            else
-              {
-                $sqlAux= $mySqli->prepare("SELECT categories.* FROM categories INNER JOIN classification ON categories.categoryId=classification.categoryId WHERE classification.itemId=?");
-                    $sqlAux->bind_param("i",$row['itemId']);
-                    $sqlAux->execute();
-                    $resultAux=$sqlAux->get_result();
-                    $rowAux=$resultAux->fetch_assoc();
-                    if(file_exists("css".DIRECTORY_SEPARATOR."Default".DIRECTORY_SEPARATOR.$rowAux['name']."Default.jpg"))
-                    {
-                      echo '<td><img src="css'.DIRECTORY_SEPARATOR.'Default'.DIRECTORY_SEPARATOR.$rowAux['name'].'Default.jpg" width="100" height="130"></td>';
-                    }
-                    else
-                    {
-                      echo '<td><img src="css'.DIRECTORY_SEPARATOR.'Default'.DIRECTORY_SEPARATOR.'itemDefault.jpg" width="100" height="130"></td>';
-                    }
-              }
+          echo '<td><img src="'.$orders[$i]['img'].'" width="100" height="130"></td>';
+            
             echo '</tr>';
         }
 echo '

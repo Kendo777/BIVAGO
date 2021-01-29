@@ -98,7 +98,7 @@
                     else
                     {
                         echo'<div class="login">
-                        <a href="index.php?page=user"><button class="btn btn-warning" type="button"><i class="fas fa-user-circle"></i> '.$_SESSION['user'].'</button></a>
+                        <a href="index.php?page=user"><button class="btn btn-warning" type="button" id="user"><i class="fas fa-user-circle" ></i>'.$_SESSION['user'].'</button></a>
                         <ul class="list-group">
                           <li class="list-group-item"><a href="index.php?page=user">Profile</a></li>
                           <li class="list-group-item"><a href="index.php?page=user&edit"><i class="fas fa-wrench"></i> Edit Profile</a></li>

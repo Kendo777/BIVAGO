@@ -66,19 +66,20 @@ function changeProductsByFilter(filter)
 	xhttp.send();
 }
 
-function buyProduct(user)
+function buyProduct()
 {
 	var shop = document.getElementById('shopId').value;
 	var item = document.getElementById('productId').value;
 	var cuantity = document.getElementById('cuantity').value;
-
+	var user = document.getElementById("user").textContent;
 	var url = "http://localhost/PAPI/Group/API-grupo/metaSearch.php?user="+user+"&shop="+shop+"&item="+item+"&cuantity="+cuantity;
-	//console.log(url);
+	console.log(url);
 	var xhttp;
 	xhttp=new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
-			updateData(this.responseText);
+			DATA = JSON.parse(this.responseText);
+			updateData(DATA);
 		}
 	};
 	xhttp.open('GET', url, true);
@@ -150,8 +151,8 @@ function gotData(data,page=1) {
 
 function updateData(data)
 {
+	console.log(data);
 	document.getElementById('stock').innerHTML= "Stock: "+data['stock'];
-
 	if(data['stock']>0)
 	{
 		document.getElementById('cuantity').setAttribute("max",data['stock']);;
