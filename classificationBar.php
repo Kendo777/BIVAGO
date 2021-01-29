@@ -35,7 +35,7 @@ echo '<div class="custom-control custom-checkbox form-group">
         $category = json_decode($category,true);
         for($i=0; $i<count($category); $i++)
         {
-          echo '<p style="cursor: pointer;">'.$category[$i]["name"].'</p>';
+          echo '<p style="cursor: pointer;" onclick="changeProductsByFilter(\''.$category[$i]["name"].'\')">'.$category[$i]["name"].'</p>';
         }
   echo '<h5>Related categories</h5><hr>';
       $subCategory = file_get_contents("http://localhost/PAPI/Group/API-grupo/metaSearch.php?subCategory");

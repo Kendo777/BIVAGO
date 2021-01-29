@@ -49,13 +49,12 @@ function changeProductsByOrder(order)
 
 function changeProductsByFilter(filter)
 {
-	var numProds = DATA.lenght();
+	var numProds = DATA.length;
 	for (var i=0; i < numProds; i++) 
     { 
 		var product = DATA[i];
 		if(product)
 		{
-			var strAux = product['category'];
 			if(strAux.search(filter) != -1)
 			{
 				DATA.pop(product);
@@ -64,7 +63,25 @@ function changeProductsByFilter(filter)
     }
 	gotData(DATA);
 }
-
+/*
+function changeProductsByFilter(filter)
+{
+	DATA = orderByFilter(DATA,filter);
+	gotData(DATA);
+}
+function orderByFilter(data, filter)
+{
+	var product = JSON.parse(data);
+	var itemsFiltered = [];
+	for(var i=0; i<product.lenght; i++)
+	{
+		if(product["category"].search(filter)!=-1)
+		{
+			itemsFiltered.push();
+		}
+	}
+}
+*/
 function buyProduct()
 {
 	var shop = document.getElementById('shopId').value;
