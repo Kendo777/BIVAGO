@@ -126,13 +126,14 @@ else if(isset($_GET["order"]))
       $product["cuantity"] = $row["cuantity"];
       $product["date"] = $row["date"];
       $product["send"] = $row["send"];
-		$sqlAux= $mySqli->prepare("SELECT * FROM addresses WHERE addressId=?");
-          $sqlAux->bind_param("i",$row['addressId']);
-          $sqlAux->execute();
-          $resultAux=$sqlAux->get_result();
-          $rowDir = $resultAux->fetch_assoc();
-        $product["direction"] = $rowDir["direction"];
-
+      if($paid!=0){
+			$sqlAux= $mySqli->prepare("SELECT * FROM addresses WHERE addressId=?");
+	          $sqlAux->bind_param("i",$row['addressId']);
+	          $sqlAux->execute();
+	          $resultAux=$sqlAux->get_result();
+	          $rowDir = $resultAux->fetch_assoc();
+	        $product["direction"] = $rowDir["direction"];
+    	}
       array_push($json, $product);
     }
     $json = json_encode($json);

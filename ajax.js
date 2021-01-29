@@ -118,7 +118,7 @@ function comparePrice( a, b )
 }
 
 function gotData(data,page=1) {
-	var string = " " + page + " ";
+	var string = "";
 	var items = data;
 	var k=(page-1)*15;
 	for (var i=0; i <3; i++) 

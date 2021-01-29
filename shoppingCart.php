@@ -42,7 +42,6 @@ $result=$sql->get_result();
       	$totalPrize = 0;
 
         $orders = file_get_contents("http://localhost/PAPI/Group/API-grupo/metaSearch.php?user=".$_SESSION["user"]."&order=0");
-
         $orders = json_decode($orders,true);
       	for($i=0; $i<count($orders); $i++)
       	{
