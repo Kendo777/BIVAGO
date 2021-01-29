@@ -50,7 +50,7 @@ function changeProductsByOrder(order)
 function changeProductsByFilter(filter)
 {
 	var numProds = DATA.length;
-	$json = [];
+	var json = [];
 	for (var i=0; i < numProds; i++) 
     { 
 		var product = DATA[i];
@@ -59,17 +59,17 @@ function changeProductsByFilter(filter)
 			var strAux = product['category'];
 			if(strAux.search(filter) != -1)
 			{
-				$json.push(product);
+				json.push(product);
 			}
 		}
     }
-	gotData($json);
+	gotData(json);
 }
 
 function changeProductsBySubCat(filter)
 {
 	var numProds = DATA.length;
-	$json = [];
+	var json = [];
 	for (var i=0; i < numProds; i++) 
     { 
 		var product = DATA[i];
@@ -78,31 +78,32 @@ function changeProductsBySubCat(filter)
 			var strAux = product['subCategory'];
 			if(strAux.search(filter) != -1)
 			{
-				$json.push(product);
+				json.push(product);
 			}
 		}
     }
-	gotData($json);
+	gotData(json);
 }
-/*
-function changeProductsByFilter(filter)
+
+function changeProductsByPrize(filter)
 {
-	DATA = orderByFilter(DATA,filter);
-	gotData(DATA);
-}
-function orderByFilter(data, filter)
-{
-	var product = JSON.parse(data);
-	var itemsFiltered = [];
-	for(var i=0; i<product.lenght; i++)
-	{
-		if(product["category"].search(filter)!=-1)
+	var numProds = DATA.length;
+	var json = [];
+	for (var i=0; i < numProds; i++) 
+    { 
+		var product = DATA[i];
+		if(product)
 		{
-			itemsFiltered.push();
+			var strAux = product['Prize'];
+			if(strAux > filter)
+			{
+				json.push(product);
+			}
 		}
-	}
+    }
+	gotData(json);
 }
-*/
+
 function buyProduct()
 {
 	var shop = document.getElementById('shopId').value;
