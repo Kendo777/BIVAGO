@@ -49,21 +49,20 @@ function changeProductsByOrder(order)
 
 function changeProductsByFilter(filter)
 {
-	var url = "http://localhost/PAPI/Group/API-grupo/metaSearch.php?user=CrapiKodaa&psw=12345&filter="+filter;
-	//console.log(url);
-	var xhttp;
-	xhttp=new XMLHttpRequest();
-	xhttp.onreadystatechange = function() {
-		if (this.readyState == 4 && this.status == 200) {
-			DATA = JSON.parse(this.responseText);
-			DATA = orderByName(DATA);
-			//DATA = orderByPrize(DATA);
-			//console.log(DATA);
-			gotData(DATA);
+	var numProds = DATA.lenght();
+	for (var i=0; i < numProds; i++) 
+    { 
+		var product = DATA[i];
+		if(product)
+		{
+			var strAux = product['category'];
+			if(strAux.search(filter) != -1)
+			{
+				DATA.pop(product);
+			}
 		}
-	};
-	xhttp.open('GET', url, true);
-	xhttp.send();
+    }
+	gotData(DATA);
 }
 
 function buyProduct()
@@ -130,7 +129,7 @@ function gotData(data,page=1) {
             if(product)
             {
                 string += '<div class="col-md-auto">'
-                 string += '<div class="card text-center" style="width: 18rem;">';
+                string += '<div class="card text-center" style="width: 18rem;">';
                 
                 string += '<div class="card-body">';
 				string += '<a href = "index.php?page=itemInfo&shop='+product['shop']+'&item='+product['id']+'"><h5 class="card-title">'+product['name']+'</h5></a>';
