@@ -63,8 +63,26 @@ function changeProductsByFilter(filter)
 			}
 		}
     }
-	DATA = $json;
-	gotData(DATA);
+	gotData($json);
+}
+
+function changeProductsBySubCat(filter)
+{
+	var numProds = DATA.length;
+	$json = [];
+	for (var i=0; i < numProds; i++) 
+    { 
+		var product = DATA[i];
+		if(product)
+		{
+			var strAux = product['subCategory'];
+			if(strAux.search(filter) != -1)
+			{
+				$json.push(product);
+			}
+		}
+    }
+	gotData($json);
 }
 /*
 function changeProductsByFilter(filter)
