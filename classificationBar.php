@@ -32,7 +32,6 @@ echo '<div class="custom-control custom-checkbox form-group">
 
     echo '<h5>Products</h5><hr>';
     $category = file_get_contents("http://localhost/PAPI/Group/API-grupo/metaSearch.php?category");
-
         $category = json_decode($category,true);
         for($i=0; $i<count($category); $i++)
         {

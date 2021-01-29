@@ -17,7 +17,7 @@ if(isset($_GET['search'])) {
 }
 else if(isset($_GET['category']))
 {
-	$json = file_get_contents("http://localhost/PAPI/OnlineShop/getProducts.php?user=Bivago&password=bivago&category");
+	$json1 = file_get_contents("http://localhost/PAPI/OnlineShop/getProducts.php?user=Bivago&password=bivago&category");
 	$json2 = file_get_contents("http://localhost/PAPI/IA-II/getFilters.php");
 	$json = json_encode(array_merge(json_decode($json1, true),json_decode($json2, true)));
 	//var_dump($data);
@@ -26,7 +26,7 @@ else if(isset($_GET['category']))
 }
 else if(isset($_GET['subCategory']))
 {
-	$json = file_get_contents("http://localhost/PAPI/OnlineShop/getProducts.php?user=Bivago&password=bivago&subCategory");
+	$json1 = file_get_contents("http://localhost/PAPI/OnlineShop/getProducts.php?user=Bivago&password=bivago&subCategory");
 	$json2 = file_get_contents("http://localhost/PAPI/IA-II/getSubCats.php");
 	$json = json_encode(array_merge(json_decode($json1, true),json_decode($json2, true)));
 	//var_dump($data);
@@ -121,7 +121,23 @@ else if(isset($_GET["order"]))
     for ($i=0; $i <$result->num_rows; $i++) { 
       $row=$result->fetch_assoc();
       
-      $product = file_get_contents("http://localhost/PAPI/OnlineShop/getProducts.php?user=Bivago&password=bivago&item=".$row["itemId"]);
+
+      /*$sqlAux= $mySqli->prepare("SELECT * FROM shops WHERE name=?");
+	    $sqlAux->bind_param("s",$row["shop"]);
+	    $sqlAux->execute();
+	    $resultAux=$sqlAux->get_result();
+	    $rowAux = $resultAux->fetch_assoc();*/
+
+	    if($row['shop'] == "Steampunk")
+		{
+      		$product = file_get_contents("http://localhost/PAPI/OnlineShop/getProducts.php?user=Bivago&password=bivago&item=".$row["itemId"]);
+		}
+		else if($row['shop'] == "Compopop")
+		{
+			$product = file_get_contents("http://localhost/PAPI/IA-II/getItem.php?item=".$row["itemId"]);
+		}
+
+
       $product = json_decode($product,true);
       $product["cuantity"] = $row["cuantity"];
       $product["date"] = $row["date"];
