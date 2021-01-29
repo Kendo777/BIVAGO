@@ -9,7 +9,7 @@ header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
 if(isset($_GET['search'])) {
 
 	$json1 = file_get_contents("http://localhost/PAPI/OnlineShop/getProducts.php?user=Bivago&password=bivago&search=".$_GET["search"]);
-	$json2 = file_get_contents("http://localhost/PAPI/IA-II/getProducts.php?search=".$_GET["search"]);
+	$json2 = file_get_contents("http://localhost/PAPI/IA-II/getProducts.php?user=Jorge&password=1234&search=".$_GET["search"]);
 	$json = json_encode(array_merge(json_decode($json1, true),json_decode($json2, true)));
 	//var_dump($data);
 	header('Content-type: application/json');
@@ -18,7 +18,7 @@ if(isset($_GET['search'])) {
 else if(isset($_GET['category']))
 {
 	$json1 = file_get_contents("http://localhost/PAPI/OnlineShop/getProducts.php?user=Bivago&password=bivago&category");
-	$json2 = file_get_contents("http://localhost/PAPI/IA-II/getFilters.php");
+	$json2 = file_get_contents("http://localhost/PAPI/IA-II/getFilters.php?user=Jorge&password=1234");
 	$json = json_encode(array_merge(json_decode($json1, true),json_decode($json2, true)));
 	//var_dump($data);
 	header('Content-type: application/json');
@@ -27,7 +27,7 @@ else if(isset($_GET['category']))
 else if(isset($_GET['subCategory']))
 {
 	$json1 = file_get_contents("http://localhost/PAPI/OnlineShop/getProducts.php?user=Bivago&password=bivago&subCategory");
-	$json2 = file_get_contents("http://localhost/PAPI/IA-II/getSubCats.php");
+	$json2 = file_get_contents("http://localhost/PAPI/IA-II/getSubCats.php?user=Jorge&password=1234");
 	$json = json_encode(array_merge(json_decode($json1, true),json_decode($json2, true)));
 	//var_dump($data);
 	header('Content-type: application/json');
@@ -41,7 +41,7 @@ else if(isset($_GET['shop']) && isset($_GET['item']) && isset($_GET['cuantity'])
 	}
 	else if($_GET['shop'] == "Compopop")
 	{
-		$json = file_get_contents("http://localhost/PAPI/IA-II/changeStock.php?item=".$_GET["item"]."&cuantity=".$_GET['cuantity']);
+		$json = file_get_contents("http://localhost/PAPI/IA-II/changeStock.php?user=Jorge&password=1234&item=".$_GET["item"]."&cuantity=".$_GET['cuantity']);
 	}
 	//var_dump($data);
 
@@ -101,7 +101,7 @@ else if(isset($_GET['shop']) && isset($_GET['item']))
 	}
 	else if($_GET['shop'] == "Compopop")
 	{
-		$json = file_get_contents("http://localhost/PAPI/IA-II/getItem.php?item=".$_GET["item"]);
+		$json = file_get_contents("http://localhost/PAPI/IA-II/getItem.php?user=Jorge&password=1234&item=".$_GET["item"]);
 	}
 	//var_dump($data);
 	header('Content-type: application/json');
@@ -134,7 +134,7 @@ else if(isset($_GET["order"]))
 		}
 		else if($row['shop'] == "Compopop")
 		{
-			$product = file_get_contents("http://localhost/PAPI/IA-II/getItem.php?item=".$row["itemId"]);
+			$product = file_get_contents("http://localhost/PAPI/IA-II/getItem.php?user=Jorge&password=1234&item=".$row["itemId"]);
 		}
 
 
@@ -198,7 +198,7 @@ else if(isset($_GET['address']) && isset($_GET['creditCard']))
 else
 {
 	$json1 = file_get_contents("http://localhost/PAPI/OnlineShop/getProducts.php?user=Bivago&password=bivago");
-	$json2 = file_get_contents("http://localhost/PAPI/IA-II/getProducts.php");
+	$json2 = file_get_contents("http://localhost/PAPI/IA-II/getProducts.php?user=Jorge&password=1234");
 	$json = json_encode(array_merge(json_decode($json1, true),json_decode($json2, true)));
 	//var_dump($data);
 	header('Content-type: application/json');
